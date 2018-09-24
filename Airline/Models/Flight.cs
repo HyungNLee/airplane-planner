@@ -56,7 +56,7 @@ namespace Airline.Models
         bool departureCityEquality = this.GetDepartureCity() == newFlight.GetDepartureCity();
         bool arrivalCityEquality = this.GetArrivalCity() == newFlight.GetArrivalCity();
         bool statusEquality = this.GetStatus() == newFlight.GetStatus();
-        return (idEquality && nameEquality && departureCityEquality && arrivalCityEquality && statusEquality);
+        return (idEquality && departureTimeEquality && departureCityEquality && arrivalCityEquality && statusEquality);
       }
     }
 
@@ -100,7 +100,7 @@ namespace Airline.Models
       conn.Close();
       if (conn != null)
       {
-        conn.Dispose()l
+        conn.Dispose();
       }
     }
 
@@ -150,7 +150,7 @@ namespace Airline.Models
       string flightDepartureCity = "";
       string flightArrivalCity = "";
       string flightStatus = "";
-      DateTime flightDepartureTime = "";
+      DateTime flightDepartureTime = new DateTime(0000, 00, 00);
 
       while (rdr.Read())
       {
@@ -240,7 +240,7 @@ namespace Airline.Models
 
     public static void DeleteAll()
     {
-      MySqlConnection conn = DB.Connection;
+      MySqlConnection conn = DB.Connection();
       conn.Open();
 
       var cmd = conn.CreateCommand() as MySqlCommand;
@@ -296,7 +296,7 @@ namespace Airline.Models
       flightIdParameter.Value = _id;
       cmd.Parameters.Add(flightIdParameter);
 
-      MySqlDataReader rdr = cmd.ExecuteReader as MySqlDataReader;
+      MySqlDataReader rdr = cmd.ExecuteReader() as MySqlDataReader;
       List<City> cities = new List<City> {};
 
       while(rdr.Read())
@@ -304,7 +304,7 @@ namespace Airline.Models
         int cityId = rdr.GetInt32(0);
         string cityName = rdr.GetString(1);
         City newCity = new City(cityName, cityId);
-        allCities.Add(newCity); 
+        cities.Add(newCity); 
       }
 
       conn.Close();

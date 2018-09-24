@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using MySql.Data.MySqlClient;
 
-namespace Airline.Models;
+namespace Airline.Models
 {
   public class City
   {
@@ -33,8 +33,8 @@ namespace Airline.Models;
       else
       {
         City newCity = (City) otherItem;
-        bool idEquality = this.GetId() == newItem.GetId();
-        bool nameEquality = this.GetName() == newItem.GetName();
+        bool idEquality = this.GetId() == newCity.GetId();
+        bool nameEquality = this.GetName() == newCity.GetName();
         return (idEquality && nameEquality);
       }
     }
@@ -62,7 +62,7 @@ namespace Airline.Models;
       conn.Close();
       if (conn != null)
       {
-        conn.Dispose()l
+        conn.Dispose();
       }
     }
 
@@ -175,7 +175,7 @@ namespace Airline.Models;
 
     public static void DeleteAll()
     {
-      MySqlConnection conn = DB.Connection;
+      MySqlConnection conn = DB.Connection();
       conn.Open();
 
       var cmd = conn.CreateCommand() as MySqlCommand;
@@ -230,14 +230,14 @@ namespace Airline.Models;
       cityIdParameter.Value = _id;
       cmd.Parameters.Add(cityIdParameter);
 
-      MySqlDataReader rdr = cmd.ExecuteReader as MySqlDataReader;
+      MySqlDataReader rdr = cmd.ExecuteReader() as MySqlDataReader;
       List<Flight> flights = new List<Flight> {};
 
       int flightId = 0;
       string flightDepartureCity = "";
       string flightArrivalCity = "";
       string flightStatus = "";
-      DateTime flightDepartureTime = "";
+      DateTime flightDepartureTime = new DateTime(0000, 00, 00);
 
       while(rdr.Read())
       {
