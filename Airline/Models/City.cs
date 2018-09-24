@@ -223,7 +223,7 @@ namespace Airline.Models
       cmd.CommandText = @"SELECT flights.* FROM cities
       JOIN flights_cities ON (cities.id = flights_cities.city_id)
       JOIN flights ON (flights_cities.flight_id = flights.id)
-      WHERE city.id = @CityId;";
+      WHERE cities.id = @CityId;";
 
       MySqlParameter cityIdParameter = new MySqlParameter();
       cityIdParameter.ParameterName = "@CityId";
@@ -237,7 +237,7 @@ namespace Airline.Models
       string flightDepartureCity = "";
       string flightArrivalCity = "";
       string flightStatus = "";
-      DateTime flightDepartureTime = new DateTime(0000, 00, 00);
+      DateTime flightDepartureTime = new DateTime(2012, 06, 23);
 
       while(rdr.Read())
       {

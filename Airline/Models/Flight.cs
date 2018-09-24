@@ -150,7 +150,7 @@ namespace Airline.Models
       string flightDepartureCity = "";
       string flightArrivalCity = "";
       string flightStatus = "";
-      DateTime flightDepartureTime = new DateTime(0000, 00, 00);
+      DateTime flightDepartureTime = new DateTime(2012, 01, 23);
 
       while (rdr.Read())
       {
